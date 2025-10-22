@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/public/home'
   },
   {
     path: '/login',
@@ -14,6 +14,49 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import('@/views/Register.vue')
+  },
+  // 前台公开页面
+  {
+    path: '/public',
+    name: 'PublicLayout',
+    component: () => import('@/views/public/Layout.vue'),
+    children: [
+      {
+        path: 'home',
+        name: 'PublicHome',
+        component: () => import('@/views/public/Home.vue')
+      },
+      {
+        path: 'notices',
+        name: 'PublicNotices',
+        component: () => import('@/views/public/Notices.vue')
+      },
+      {
+        path: 'notices/:id',
+        name: 'PublicNoticeDetail',
+        component: () => import('@/views/public/NoticeDetail.vue')
+      },
+      {
+        path: 'menu',
+        name: 'PublicMenu',
+        component: () => import('@/views/public/Menu.vue')
+      },
+      {
+        path: 'teachers',
+        name: 'PublicTeachers',
+        component: () => import('@/views/public/Teachers.vue')
+      },
+      {
+        path: 'albums',
+        name: 'PublicAlbums',
+        component: () => import('@/views/public/Albums.vue')
+      },
+      {
+        path: 'enrollment',
+        name: 'PublicEnrollment',
+        component: () => import('@/views/public/Enrollment.vue')
+      }
+    ]
   },
   {
     path: '/parent',
