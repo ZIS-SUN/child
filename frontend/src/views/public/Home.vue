@@ -54,7 +54,7 @@
             </div>
           </div>
           <div class="intro-image">
-            <img src="https://via.placeholder.com/500x400/667eea/ffffff?text=园所环境" alt="园所环境">
+            <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500&h=400&fit=crop" alt="园所环境">
           </div>
         </div>
       </section>
@@ -73,7 +73,7 @@
         <div class="teachers-grid" v-loading="loading">
           <div class="teacher-card" v-for="teacher in teachers" :key="teacher.id">
             <div class="teacher-avatar">
-              <img :src="teacher.avatar || 'https://via.placeholder.com/120/667eea/ffffff?text=T'" :alt="teacher.name">
+              <img :src="teacher.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(teacher.name)}&background=667eea&color=fff&size=120`" :alt="teacher.name">
             </div>
             <div class="teacher-info">
               <h3 class="teacher-name">{{ teacher.name }}</h3>
@@ -177,17 +177,17 @@ const loading = ref(false)
 
 const bannerImages = ref([
   {
-    url: 'https://via.placeholder.com/1200x500/667eea/ffffff?text=欢迎来到UltraThink幼儿园',
+    url: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1200&h=500&fit=crop',
     title: '用心守护每一个孩子的成长',
     subtitle: '专业、温馨、有爱的学前教育'
   },
   {
-    url: 'https://via.placeholder.com/1200x500/764ba2/ffffff?text=优质教育环境',
+    url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&h=500&fit=crop',
     title: '现代化的教学设施',
     subtitle: '为孩子提供最好的成长空间'
   },
   {
-    url: 'https://via.placeholder.com/1200x500/f093fb/ffffff?text=快乐学习',
+    url: 'https://images.unsplash.com/photo-1560421683-6856ea585c78?w=1200&h=500&fit=crop',
     title: '寓教于乐的教学方式',
     subtitle: '在游戏中学习，在快乐中成长'
   }
@@ -253,13 +253,28 @@ const notices = ref([
 const fetchHomeData = async () => {
   loading.value = true
   try {
-    // 这里可以调用真实的API
-    // const res = await getHomePageData()
-    // teachers.value = res.data.teachers
-    // notices.value = res.data.notices
-    // weeklyMenu.value = res.data.menu
+    const res = await getHomePageData()
+    // 处理教师数据，解析tags JSON字符串
+    if (res.data.teachers) {
+      teachers.value = res.data.teachers.map(teacher => ({
+        ...teacher,
+        tags: typeof teacher.tags === 'string' ? JSON.parse(teacher.tags) : teacher.tags
+      }))
+    }
+    if (res.data.notices) {
+      notices.value = res.data.notices
+    }
+    if (res.data.menu) {
+      weeklyMenu.value = res.data.menu.map(item => ({
+        day: item.weekday,
+        dayName: ['周一', '周二', '周三', '周四', '周五'][item.weekday - 1],
+        breakfast: JSON.parse(item.breakfast || '[]').map(i => i.name).join('、'),
+        lunch: JSON.parse(item.lunch || '[]').map(i => i.name).join('、')
+      }))
+    }
   } catch (error) {
     console.error('获取首页数据失败', error)
+    ElMessage.error('获取首页数据失败')
   } finally {
     loading.value = false
   }

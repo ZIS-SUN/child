@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers("/parent/register", "/parent/login", "/admin/login").permitAll()
+            .antMatchers("/public/**").permitAll()
             .antMatchers("/doc.html", "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html", "/favicon.ico").permitAll()
             .antMatchers("/parent/**").hasAuthority("PARENT")
             .antMatchers("/admin/**").hasAnyAuthority("PRINCIPAL", "TEACHER")

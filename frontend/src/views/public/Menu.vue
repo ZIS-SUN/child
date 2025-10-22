@@ -293,10 +293,16 @@ const weekDateRange = computed(() => {
 const fetchWeeklyMenu = async () => {
   loading.value = true
   try {
-    // 调用真实API
-    // const res = await getWeeklyMenu({ weekOffset: currentWeekOffset.value })
-    // weeklyMenu.value = res.data
+    const res = await getWeeklyMenu({ weekOffset: currentWeekOffset.value })
+    weeklyMenu.value = res.data.map(item => ({
+      weekday: item.weekday,
+      breakfast: typeof item.breakfast === 'string' ? JSON.parse(item.breakfast) : item.breakfast,
+      snack1: typeof item.snack1 === 'string' ? JSON.parse(item.snack1) : item.snack1,
+      lunch: typeof item.lunch === 'string' ? JSON.parse(item.lunch) : item.lunch,
+      snack2: typeof item.snack2 === 'string' ? JSON.parse(item.snack2) : item.snack2
+    }))
   } catch (error) {
+    console.error('获取食谱失败', error)
     ElMessage.error('获取食谱失败')
   } finally {
     loading.value = false

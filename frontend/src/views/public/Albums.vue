@@ -89,8 +89,29 @@ const handlePreview = (index) => {
   showViewer.value = true
 }
 
+const fetchAlbums = async () => {
+  loading.value = true
+  try {
+    // 总是获取所有相册，然后通过computed进行前端过滤
+    const res = await getAlbumList('all')
+    photoList.value = res.data.map(photo => ({
+      id: photo.id,
+      title: photo.title,
+      category: photo.category,
+      date: photo.photoDate ? photo.photoDate.split(' ')[0] : '',
+      url: photo.imageUrl,
+      description: photo.description
+    }))
+  } catch (error) {
+    console.error('获取相册列表失败', error)
+    ElMessage.error('获取相册列表失败')
+  } finally {
+    loading.value = false
+  }
+}
+
 onMounted(() => {
-  // fetchAlbums()
+  fetchAlbums()
 })
 </script>
 

@@ -30,27 +30,29 @@ export const getNoticeDetail = (id) => {
 }
 
 // 获取本周食谱
-export const getWeeklyMenu = () => {
+export const getWeeklyMenu = (params) => {
   return request({
     url: '/public/menu/weekly',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 
 // 获取师资列表
-export const getTeacherList = () => {
+export const getTeacherList = (classType = 'all') => {
   return request({
     url: '/public/teachers',
-    method: 'get'
+    method: 'get',
+    params: { classType }
   })
 }
 
 // 获取相册列表
-export const getAlbumList = (params) => {
+export const getAlbumList = (category = 'all') => {
   return request({
     url: '/public/albums',
     method: 'get',
-    params
+    params: { category }
   })
 }
 

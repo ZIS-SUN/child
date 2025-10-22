@@ -21,11 +21,12 @@
       <!-- 教师列表 -->
       <div class="teachers-container" v-loading="loading">
         <div class="teachers-grid">
-          <div class="teacher-card" v-for="teacher in filteredTeachers" :key="teacher.id">
+          <div class="teacher-card" v-for="teacher in filteredTeachers" :key="teacher.id" @click="showTeacherDetail(teacher)">
             <div class="teacher-image">
-              <img :src="teacher.avatar || 'https://via.placeholder.com/300/667eea/ffffff?text=' + teacher.name" :alt="teacher.name">
-              <div class="teacher-overlay">
-                <el-button type="primary" circle :icon="User"></el-button>
+              <img :src="teacher.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(teacher.name)}&background=667eea&color=fff&size=300`" :alt="teacher.name">
+              <div class="click-hint">
+                <el-icon><View /></el-icon>
+                <span>查看详情</span>
               </div>
             </div>
             <div class="teacher-info">
@@ -44,6 +45,39 @@
           </div>
         </div>
       </div>
+
+      <!-- 教师详情对话框 -->
+      <el-dialog
+        v-model="dialogVisible"
+        :title="selectedTeacher?.name"
+        width="600px"
+        center
+      >
+        <div class="teacher-detail" v-if="selectedTeacher">
+          <div class="detail-avatar">
+            <img :src="selectedTeacher.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedTeacher.name)}&background=667eea&color=fff&size=200`" :alt="selectedTeacher.name">
+          </div>
+          <div class="detail-info">
+            <h2>{{ selectedTeacher.name }}</h2>
+            <p class="detail-position">{{ selectedTeacher.position }}</p>
+            <p class="detail-class" v-if="selectedTeacher.className">所属班级：{{ selectedTeacher.className }}</p>
+
+            <div class="detail-section">
+              <h3>专业资质</h3>
+              <div class="detail-tags">
+                <el-tag v-for="tag in selectedTeacher.tags" :key="tag" size="large" type="success" effect="light">
+                  {{ tag }}
+                </el-tag>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h3>个人简介</h3>
+              <p class="detail-description">{{ selectedTeacher.description }}</p>
+            </div>
+          </div>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -52,10 +86,12 @@
 import { ref, computed, onMounted } from 'vue'
 import { getTeacherList } from '@/api/public'
 import { ElMessage } from 'element-plus'
-import { User } from '@element-plus/icons-vue'
+import { View } from '@element-plus/icons-vue'
 
 const loading = ref(false)
 const selectedClass = ref('all')
+const dialogVisible = ref(false)
+const selectedTeacher = ref(null)
 
 const teacherList = ref([
   {
@@ -190,10 +226,15 @@ const filteredTeachers = computed(() => {
 const fetchTeachers = async () => {
   loading.value = true
   try {
-    // 调用真实API
-    // const res = await getTeacherList()
-    // teacherList.value = res.data
+    // 总是获取所有教师，然后通过computed进行前端过滤
+    const res = await getTeacherList('all')
+    // 处理tags字段，将JSON字符串转换为数组
+    teacherList.value = res.data.map(teacher => ({
+      ...teacher,
+      tags: typeof teacher.tags === 'string' ? JSON.parse(teacher.tags) : teacher.tags
+    }))
   } catch (error) {
+    console.error('获取教师列表失败', error)
     ElMessage.error('获取教师列表失败')
   } finally {
     loading.value = false
@@ -202,6 +243,11 @@ const fetchTeachers = async () => {
 
 const handleClassChange = () => {
   // 可以添加动画效果
+}
+
+const showTeacherDetail = (teacher) => {
+  selectedTeacher.value = teacher
+  dialogVisible.value = true
 }
 
 onMounted(() => {
@@ -262,6 +308,7 @@ onMounted(() => {
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .teacher-card:hover {
@@ -269,10 +316,37 @@ onMounted(() => {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
 }
 
+.teacher-card:hover .click-hint {
+  opacity: 1;
+}
+
 .teacher-image {
   position: relative;
   height: 300px;
   overflow: hidden;
+}
+
+.click-hint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(102, 126, 234, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.click-hint .el-icon {
+  font-size: 32px;
 }
 
 .teacher-image img {
@@ -360,5 +434,77 @@ onMounted(() => {
   .teachers-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* 详情对话框样式 */
+.teacher-detail {
+  text-align: center;
+}
+
+.detail-avatar {
+  margin-bottom: 24px;
+}
+
+.detail-avatar img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.detail-info h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.detail-position {
+  font-size: 18px;
+  color: #667eea;
+  margin-bottom: 16px;
+}
+
+.detail-class {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.detail-section {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+  text-align: left;
+}
+
+.detail-section h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-section h3::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.detail-description {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #666;
+  text-align: justify;
 }
 </style>

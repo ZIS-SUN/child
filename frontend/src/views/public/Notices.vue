@@ -133,16 +133,15 @@ const noticeList = ref([
 const fetchNotices = async () => {
   loading.value = true
   try {
-    // 调用真实API
-    // const res = await getNoticeList({
-    //   keyword: searchKeyword.value,
-    //   page: currentPage.value,
-    //   pageSize: pageSize.value
-    // })
-    // noticeList.value = res.data.list
-    // total.value = res.data.total
-    total.value = noticeList.value.length
+    const res = await getNoticeList({
+      keyword: searchKeyword.value,
+      page: currentPage.value,
+      pageSize: pageSize.value
+    })
+    noticeList.value = res.data.records || res.data.list || []
+    total.value = res.data.total || 0
   } catch (error) {
+    console.error('获取公告列表失败', error)
     ElMessage.error('获取公告列表失败')
   } finally {
     loading.value = false
