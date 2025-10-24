@@ -85,6 +85,21 @@ const routes = [
         component: () => import('@/views/parent/Leave.vue')
       },
       {
+        path: 'attendance',
+        name: 'ParentAttendance',
+        component: () => import('@/views/parent/Attendance.vue')
+      },
+      {
+        path: 'albums',
+        name: 'ParentAlbums',
+        component: () => import('@/views/parent/Albums.vue')
+      },
+      {
+        path: 'health',
+        name: 'ParentHealth',
+        component: () => import('@/views/parent/Health.vue')
+      },
+      {
         path: 'profile',
         name: 'ParentProfile',
         component: () => import('@/views/parent/Profile.vue')
@@ -121,6 +136,26 @@ const routes = [
         path: 'notices',
         name: 'AdminNotices',
         component: () => import('@/views/admin/Notices.vue')
+      },
+      {
+        path: 'attendance',
+        name: 'AdminAttendance',
+        component: () => import('@/views/admin/Attendance.vue')
+      },
+      {
+        path: 'leave',
+        name: 'AdminLeave',
+        component: () => import('@/views/admin/Leave.vue')
+      },
+      {
+        path: 'albums',
+        name: 'AdminAlbums',
+        component: () => import('@/views/admin/Albums.vue')
+      },
+      {
+        path: 'health',
+        name: 'AdminHealth',
+        component: () => import('@/views/admin/Health.vue')
       }
     ]
   }

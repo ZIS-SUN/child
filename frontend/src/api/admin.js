@@ -189,3 +189,176 @@ export function uploadImage(file) {
     }
   })
 }
+
+// 考勤管理
+export function getAttendanceList(params) {
+  return request({
+    url: '/admin/attendance',
+    method: 'get',
+    params
+  })
+}
+
+export function checkIn(data) {
+  return request({
+    url: '/admin/attendance/check-in',
+    method: 'post',
+    params: data
+  })
+}
+
+export function checkOut(data) {
+  return request({
+    url: '/admin/attendance/check-out',
+    method: 'post',
+    params: data
+  })
+}
+
+export function recordAbsent(data) {
+  return request({
+    url: '/admin/attendance/absent',
+    method: 'post',
+    params: data
+  })
+}
+
+export function updateAttendance(id, data) {
+  return request({
+    url: `/admin/attendance/${id}`,
+    method: 'put',
+    params: data
+  })
+}
+
+export function deleteAttendance(id) {
+  return request({
+    url: `/admin/attendance/${id}`,
+    method: 'delete'
+  })
+}
+
+export function getClassAttendanceStats(classId, date) {
+  return request({
+    url: `/admin/attendance/stats/class/${classId}`,
+    method: 'get',
+    params: { date }
+  })
+}
+
+export function getChildAttendanceStats(childId, year, month) {
+  return request({
+    url: `/admin/attendance/stats/child/${childId}`,
+    method: 'get',
+    params: { year, month }
+  })
+}
+
+// 相册管理
+export function getAlbumList(params) {
+  return request({
+    url: '/admin/albums',
+    method: 'get',
+    params
+  })
+}
+
+export function createAlbum(data) {
+  return request({
+    url: '/admin/albums',
+    method: 'post',
+    data
+  })
+}
+
+export function updateAlbum(id, data) {
+  return request({
+    url: `/admin/albums/${id}`,
+    method: 'put',
+    data
+  })
+}
+
+export function deleteAlbum(id) {
+  return request({
+    url: `/admin/albums/${id}`,
+    method: 'delete'
+  })
+}
+
+export function addAlbumPhotos(albumId, data) {
+  return request({
+    url: `/admin/albums/${albumId}/photos`,
+    method: 'post',
+    data
+  })
+}
+
+export function deleteAlbumPhoto(albumId, params) {
+  return request({
+    url: `/admin/albums/${albumId}/photos`,
+    method: 'delete',
+    params
+  })
+}
+
+// 健康管理
+export function getHealthInfo(childId) {
+  return request({
+    url: `/admin/health/${childId}`,
+    method: 'get'
+  })
+}
+
+export function updateHealthInfo(childId, data) {
+  return request({
+    url: `/admin/health/${childId}`,
+    method: 'put',
+    data
+  })
+}
+
+export function recordTemperature(childId, data) {
+  return request({
+    url: `/admin/health/${childId}/temperature`,
+    method: 'post',
+    data
+  })
+}
+
+export function getTemperatureRecords(childId, params) {
+  return request({
+    url: `/admin/health/${childId}/temperature`,
+    method: 'get',
+    params
+  })
+}
+
+export function deleteTemperatureRecord(id) {
+  return request({
+    url: `/admin/health/temperature/${id}`,
+    method: 'delete'
+  })
+}
+
+export function recordGrowth(childId, data) {
+  return request({
+    url: `/admin/health/${childId}/growth`,
+    method: 'post',
+    data
+  })
+}
+
+export function getGrowthRecords(childId) {
+  return request({
+    url: `/admin/health/${childId}/growth`,
+    method: 'get'
+  })
+}
+
+export function deleteGrowthRecord(id) {
+  return request({
+    url: `/admin/health/growth/${id}`,
+    method: 'delete'
+  })
+}

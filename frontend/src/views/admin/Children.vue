@@ -3,7 +3,10 @@
     <h2>幼儿管理</h2>
     <el-card>
       <el-row style="margin-bottom: 20px">
-        <el-button type="primary" @click="showAddDialog">新增幼儿</el-button>
+        <el-col :span="12">
+          <el-button type="primary" @click="showAddDialog">新增幼儿</el-button>
+          <el-button type="success" @click="exportData">导出数据</el-button>
+        </el-col>
       </el-row>
 
       <el-table :data="children" style="width: 100%">
@@ -104,6 +107,7 @@
 import { ref, onMounted } from 'vue'
 import { getChildList, addChild, updateChild, deleteChild as delChild, getClassList, getUserList } from '@/api/admin'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { exportToExcel, formatDate } from '@/utils/export'
 
 const children = ref([])
 const classList = ref([])
@@ -209,6 +213,29 @@ const deleteChild = async (id) => {
       ElMessage.error('删除失败')
     }
   }
+}
+
+// 导出数据
+const exportData = () => {
+  if (children.value.length === 0) {
+    ElMessage.warning('暂无数据可导出')
+    return
+  }
+
+  const columns = [
+    { label: '姓名', prop: 'name' },
+    { label: '性别', prop: 'gender', formatter: (row) => row.gender === 'M' ? '男' : '女' },
+    { label: '出生日期', prop: 'birthDate' },
+    { label: '班级', prop: 'className' },
+    { label: '家长', prop: 'parentName' },
+    { label: '家长电话', prop: 'parentPhone' },
+    { label: '家庭住址', prop: 'address' },
+    { label: '入园日期', prop: 'enrollmentDate' }
+  ]
+
+  const filename = `幼儿信息_${formatDate(new Date())}.xls`
+  exportToExcel(children.value, columns, filename)
+  ElMessage.success('导出成功')
 }
 
 onMounted(() => {

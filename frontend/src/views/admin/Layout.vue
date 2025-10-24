@@ -39,6 +39,22 @@
           <el-icon><School /></el-icon>
           <template #title>班级管理</template>
         </el-menu-item>
+        <el-menu-item index="/admin/attendance" class="menu-item">
+          <el-icon><Calendar /></el-icon>
+          <template #title>考勤管理</template>
+        </el-menu-item>
+        <el-menu-item index="/admin/leave" class="menu-item">
+          <el-icon><DocumentChecked /></el-icon>
+          <template #title>请假审批</template>
+        </el-menu-item>
+        <el-menu-item index="/admin/albums" class="menu-item">
+          <el-icon><Picture /></el-icon>
+          <template #title>成长相册</template>
+        </el-menu-item>
+        <el-menu-item index="/admin/health" class="menu-item">
+          <el-icon><DataLine /></el-icon>
+          <template #title>健康管理</template>
+        </el-menu-item>
         <el-menu-item index="/admin/notices" class="menu-item">
           <el-icon><Bell /></el-icon>
           <template #title>通知管理</template>
@@ -111,6 +127,10 @@ import {
   Avatar,
   School,
   Bell,
+  Calendar,
+  DocumentChecked,
+  Picture,
+  DataLine,
   Expand,
   Fold,
   ArrowDown,
@@ -129,6 +149,10 @@ const currentPageName = computed(() => {
     '/admin/users': '用户管理',
     '/admin/children': '幼儿管理',
     '/admin/classes': '班级管理',
+    '/admin/attendance': '考勤管理',
+    '/admin/leave': '请假审批',
+    '/admin/albums': '成长相册',
+    '/admin/health': '健康管理',
     '/admin/notices': '通知管理'
   }
   return map[route.path] || '管理后台'

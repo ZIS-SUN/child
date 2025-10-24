@@ -102,3 +102,72 @@ export function updatePassword(data) {
     data
   })
 }
+
+// 考勤查询
+export function getAttendanceCalendar(params) {
+  return request({
+    url: '/parent/attendance/calendar',
+    method: 'get',
+    params
+  })
+}
+
+export function getAttendanceStats(params) {
+  return request({
+    url: '/parent/attendance/stats',
+    method: 'get',
+    params
+  })
+}
+
+// 相册查看
+export function getMyAlbums() {
+  return request({
+    url: '/parent/albums',
+    method: 'get'
+  })
+}
+
+export function getAlbumDetail(id) {
+  return request({
+    url: `/parent/albums/${id}`,
+    method: 'get'
+  })
+}
+
+export function getAlbumPhotos(id) {
+  return request({
+    url: `/parent/albums/${id}/photos`,
+    method: 'get'
+  })
+}
+
+// 健康管理
+export function getChildHealthInfo(childId) {
+  return request({
+    url: `/parent/health/${childId}`,
+    method: 'get'
+  })
+}
+
+export function getChildTemperatureRecords(childId, params) {
+  return request({
+    url: `/parent/health/${childId}/temperature`,
+    method: 'get',
+    params
+  })
+}
+
+export function getChildGrowthRecords(childId) {
+  return request({
+    url: `/parent/health/${childId}/growth`,
+    method: 'get'
+  })
+}
+
+export function getRecentTemperature(childId) {
+  return request({
+    url: `/parent/health/${childId}/temperature/recent`,
+    method: 'get'
+  })
+}

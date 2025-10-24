@@ -23,9 +23,21 @@
           <el-icon><Bell /></el-icon>
           <span>通知公告</span>
         </el-menu-item>
+        <el-menu-item index="/parent/attendance">
+          <el-icon><Calendar /></el-icon>
+          <span>考勤记录</span>
+        </el-menu-item>
         <el-menu-item index="/parent/leave">
           <el-icon><Document /></el-icon>
           <span>请假管理</span>
+        </el-menu-item>
+        <el-menu-item index="/parent/albums">
+          <el-icon><Picture /></el-icon>
+          <span>成长相册</span>
+        </el-menu-item>
+        <el-menu-item index="/parent/health">
+          <el-icon><DataLine /></el-icon>
+          <span>健康档案</span>
         </el-menu-item>
         <el-menu-item index="/parent/profile">
           <el-icon><Setting /></el-icon>
@@ -52,6 +64,7 @@
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { House, User, Bell, Calendar, Document, Picture, DataLine, Setting } from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
 
 const route = useRoute()
