@@ -70,10 +70,10 @@
       <el-row style="margin-bottom: 20px">
         <el-select v-model="queryParams.status" placeholder="全部状态" style="width: 150px; margin-right: 10px" @change="fetchLeaveList">
           <el-option label="全部状态" value="" />
-          <el-option label="待审批" value="pending" />
-          <el-option label="已通过" value="approved" />
-          <el-option label="已拒绝" value="rejected" />
-          <el-option label="已撤销" value="cancelled" />
+          <el-option label="待审批" value="PENDING" />
+          <el-option label="已通过" value="APPROVED" />
+          <el-option label="已拒绝" value="REJECTED" />
+          <el-option label="已撤销" value="CANCELLED" />
         </el-select>
       </el-row>
 
@@ -85,18 +85,18 @@
         <el-table-column prop="reason" label="请假原因" min-width="200" show-overflow-tooltip />
         <el-table-column prop="status" label="审批状态" width="100">
           <template #default="{ row }">
-            <el-tag v-if="row.status === 'pending'" type="warning">待审批</el-tag>
-            <el-tag v-else-if="row.status === 'approved'" type="success">已通过</el-tag>
-            <el-tag v-else-if="row.status === 'rejected'" type="danger">已拒绝</el-tag>
+            <el-tag v-if="row.status === 'PENDING'" type="warning">待审批</el-tag>
+            <el-tag v-else-if="row.status === 'APPROVED'" type="success">已通过</el-tag>
+            <el-tag v-else-if="row.status === 'REJECTED'" type="danger">已拒绝</el-tag>
             <el-tag v-else type="info">已撤销</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="approverName" label="审批人" width="100" />
-        <el-table-column prop="rejectReason" label="拒绝原因" width="150" show-overflow-tooltip />
+        <el-table-column prop="approveRemark" label="审批备注" width="150" show-overflow-tooltip />
         <el-table-column label="操作" width="120">
           <template #default="{ row }">
             <el-button
-              v-if="row.status === 'pending'"
+              v-if="row.status === 'PENDING'"
               size="small"
               type="danger"
               @click="cancelLeave(row.id)"
@@ -156,9 +156,9 @@ const fetchChildren = async () => {
 
 const fetchLeaveList = async () => {
   try {
-    const res = await getLeaveList(queryParams.value)
-    leaveList.value = res.data.records || []
-    total.value = res.data.total || 0
+    const res = await getLeaveList()
+    leaveList.value = res.data || []
+    total.value = leaveList.value.length
   } catch (error) {
     ElMessage.error('获取请假记录失败')
   }

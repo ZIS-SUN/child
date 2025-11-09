@@ -2,14 +2,16 @@
   <el-container class="layout-container">
     <el-aside width="200px">
       <div class="logo">
-        <h3>家长端</h3>
+        <span class="logo-icon">👨‍👩‍👧‍👦</span>
+        <h3 class="logo-text">家长端</h3>
       </div>
       <el-menu
         :default-active="activeMenu"
         router
-        background-color="#304156"
-        text-color="#bfcbd9"
-        active-text-color="#409EFF"
+        background-color="transparent"
+        text-color="#c0c4cc"
+        active-text-color="#ffffff"
+        class="parent-menu"
       >
         <el-menu-item index="/parent/home">
           <el-icon><House /></el-icon>
@@ -87,30 +89,71 @@ const handleLogout = () => {
 </script>
 
 <style scoped>
+/* ========== 鸿蒙风格家长端布局 ========== */
+
 .layout-container {
   height: 100vh;
 }
 
 .el-aside {
-  background-color: #304156;
+  background: linear-gradient(180deg, #1D1D1F 0%, #2C2C2E 100%);
   color: #fff;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.el-aside::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .logo {
-  height: 60px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #2b3a4a;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.25);
   color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logo-icon {
+  font-size: 28px;
+  animation: bounce 3s infinite ease-in-out;
+  filter: drop-shadow(0 2px 8px rgba(0, 204, 136, 0.4));
+}
+
+.logo-text {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00CC88 0%, #00AA73 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 .el-header {
-  background-color: #fff;
-  border-bottom: 1px solid #e6e6e6;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 28px;
+  height: 64px;
 }
 
 .header-content {
@@ -120,8 +163,68 @@ const handleLogout = () => {
   width: 100%;
 }
 
+.header-content > span {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1D1D1F;
+  letter-spacing: 0.3px;
+}
+
+.header-content :deep(.el-button) {
+  border-radius: 14px;
+  padding: 8px 20px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header-content :deep(.el-button--small) {
+  font-size: 14px;
+}
+
 .el-main {
-  background-color: #f0f2f5;
-  padding: 20px;
+  background-color: #F5F5F9;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* 菜单样式统一 */
+.parent-menu {
+  border: none;
+  padding: 8px;
+}
+
+.parent-menu :deep(.el-menu-item) {
+  margin: 4px 0;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #EBEBF0;
+  height: 48px;
+  line-height: 48px;
+}
+
+.parent-menu :deep(.el-menu-item:hover) {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #FFFFFF;
+}
+
+.parent-menu :deep(.el-menu-item.is-active) {
+  background: linear-gradient(135deg, #00CC88 0%, #00AA73 100%) !important;
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(0, 204, 136, 0.35);
+}
+
+.parent-menu :deep(.el-menu-item .el-icon) {
+  font-size: 18px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .el-header {
+    padding: 0 16px;
+  }
+
+  .el-main {
+    padding: 16px;
+  }
 }
 </style>

@@ -45,12 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/parent/register", "/parent/login", "/admin/login").permitAll()
+            .antMatchers("/parent/register", "/parent/login", "/admin/login", "/parent/logout").permitAll()
             .antMatchers("/public/**").permitAll()
+            .antMatchers("/upload/**").permitAll()
             .antMatchers("/doc.html", "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html", "/favicon.ico").permitAll()
             .antMatchers("/parent/**").hasAuthority("PARENT")
             .antMatchers("/admin/**").hasAnyAuthority("PRINCIPAL", "TEACHER")
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()  // 改为permitAll以允许所有其他请求
             .and()
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

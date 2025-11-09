@@ -181,6 +181,8 @@ const handleAdminLogin = async () => {
 </script>
 
 <style scoped>
+/* ========== 鸿蒙风格登录页面 ========== */
+
 .login-container {
   position: relative;
   display: flex;
@@ -188,7 +190,7 @@ const handleAdminLogin = async () => {
   align-items: center;
   min-height: 100vh;
   overflow: hidden;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #007DFF 0%, #0066CC 50%, #005BB5 100%);
 }
 
 .login-background {
@@ -201,125 +203,138 @@ const handleAdminLogin = async () => {
 .bubble {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  animation: float 15s infinite ease-in-out;
+  background: rgba(255, 255, 255, 0.08);
+  animation: float 20s infinite ease-in-out;
+  backdrop-filter: blur(2px);
 }
 
 .bubble-1 {
-  width: 80px;
-  height: 80px;
-  left: 10%;
-  top: 20%;
+  width: 120px;
+  height: 120px;
+  left: 8%;
+  top: 15%;
   animation-delay: 0s;
 }
 
 .bubble-2 {
-  width: 60px;
-  height: 60px;
-  left: 80%;
-  top: 40%;
-  animation-delay: 2s;
+  width: 80px;
+  height: 80px;
+  left: 75%;
+  top: 35%;
+  animation-delay: 3s;
 }
 
 .bubble-3 {
-  width: 100px;
-  height: 100px;
-  left: 60%;
-  top: 70%;
-  animation-delay: 4s;
+  width: 150px;
+  height: 150px;
+  left: 55%;
+  top: 65%;
+  animation-delay: 6s;
 }
 
 .bubble-4 {
-  width: 50px;
-  height: 50px;
-  left: 30%;
-  top: 80%;
-  animation-delay: 1s;
+  width: 60px;
+  height: 60px;
+  left: 25%;
+  top: 75%;
+  animation-delay: 2s;
 }
 
 .bubble-5 {
-  width: 70px;
-  height: 70px;
-  left: 85%;
-  top: 15%;
-  animation-delay: 3s;
+  width: 100px;
+  height: 100px;
+  left: 88%;
+  top: 10%;
+  animation-delay: 4s;
 }
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(0) translateX(0) scale(1);
-    opacity: 0.6;
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
   }
-  50% {
-    transform: translateY(-30px) translateX(20px) scale(1.1);
-    opacity: 0.8;
+  33% {
+    transform: translate(30px, -40px) scale(1.1);
+    opacity: 0.7;
+  }
+  66% {
+    transform: translate(-20px, -20px) scale(0.9);
+    opacity: 0.6;
   }
 }
 
 .login-card {
   position: relative;
-  width: 480px;
-  padding: 40px 50px;
-  backdrop-filter: blur(10px);
+  width: 500px;
+  padding: 48px 56px;
+  backdrop-filter: blur(40px);
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideIn 0.6s ease-out;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 24px 64px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 10;
 }
 
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .login-header {
   text-align: center;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
 }
 
 .logo-container {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .logo-icon {
-  font-size: 60px;
+  font-size: 72px;
   display: inline-block;
-  animation: bounce 2s infinite;
+  animation: bounce 3s infinite ease-in-out;
+  filter: drop-shadow(0 4px 12px rgba(0, 125, 255, 0.3));
 }
 
 @keyframes bounce {
   0%, 100% {
-    transform: translateY(0);
+    transform: translateY(0) rotate(0deg);
   }
-  50% {
-    transform: translateY(-10px);
+  25% {
+    transform: translateY(-12px) rotate(-3deg);
+  }
+  75% {
+    transform: translateY(-8px) rotate(3deg);
   }
 }
 
 .title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
-  color: #2c3e50;
-  margin: 15px 0 10px;
-  letter-spacing: 1px;
+  color: #1D1D1F;
+  margin: 16px 0 12px;
+  letter-spacing: 0.5px;
 }
 
 .subtitle {
-  font-size: 14px;
-  color: #7f8c8d;
+  font-size: 15px;
+  color: #86868B;
   margin: 0;
   font-weight: 400;
+  letter-spacing: 0.3px;
 }
 
 .login-tabs {
-  margin-top: 25px;
+  margin-top: 32px;
 }
 
 .login-tabs :deep(.el-tabs__nav-wrap::after) {
@@ -327,97 +342,141 @@ const handleAdminLogin = async () => {
 }
 
 .login-tabs :deep(.el-tabs__item) {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 500;
-  padding: 0 25px;
+  padding: 0 28px;
+  color: #86868B;
+  transition: all 0.3s ease;
+}
+
+.login-tabs :deep(.el-tabs__item.is-active) {
+  color: #007DFF;
+  font-weight: 600;
 }
 
 .login-tabs :deep(.el-tabs__active-bar) {
   height: 3px;
   border-radius: 3px;
+  background: linear-gradient(90deg, #007DFF 0%, #0066CC 100%);
 }
 
 .tab-label {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .login-form {
-  margin-top: 30px;
+  margin-top: 36px;
 }
 
 .login-form :deep(.el-form-item) {
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .login-form :deep(.el-input__wrapper) {
-  border-radius: 12px;
-  padding: 8px 15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s;
+  border-radius: 16px;
+  padding: 12px 18px;
+  background: #F5F5F9;
+  box-shadow: none;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
 }
 
 .login-form :deep(.el-input__wrapper:hover) {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #EBEBF0;
 }
 
 .login-form :deep(.el-input__wrapper.is-focus) {
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  background: #FFFFFF;
+  border-color: #007DFF;
+  box-shadow: 0 0 0 4px rgba(0, 125, 255, 0.1);
+}
+
+.login-form :deep(.el-input__inner) {
+  font-size: 15px;
+  color: #1D1D1F;
+}
+
+.login-form :deep(.el-input__inner::placeholder) {
+  color: #AEAEB2;
 }
 
 .login-button {
   width: 100%;
-  height: 48px;
-  font-size: 16px;
+  height: 52px;
+  font-size: 17px;
   font-weight: 600;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #007DFF 0%, #0066CC 100%);
   border: none;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  transition: all 0.3s;
+  box-shadow: 
+    0 8px 20px rgba(0, 125, 255, 0.3),
+    0 0 0 1px rgba(0, 125, 255, 0.1) inset;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.5px;
 }
 
 .login-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 
+    0 12px 28px rgba(0, 125, 255, 0.4),
+    0 0 0 1px rgba(0, 125, 255, 0.2) inset;
 }
 
 .login-button:active {
-  transform: translateY(0);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 6px 16px rgba(0, 125, 255, 0.3),
+    0 0 0 1px rgba(0, 125, 255, 0.1) inset;
 }
 
 .register-link {
   text-align: center;
   margin-bottom: 0;
+  margin-top: 8px;
 }
 
 .register-link a {
-  color: #7f8c8d;
+  color: #86868B;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 15px;
   transition: color 0.3s;
 }
 
 .register-link .link-text {
-  color: #667eea;
+  color: #007DFF;
   font-weight: 600;
-  margin-left: 4px;
+  margin-left: 6px;
 }
 
 .register-link a:hover .link-text {
-  color: #764ba2;
-  text-decoration: underline;
+  color: #0066CC;
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {
   .login-card {
-    width: 90%;
-    padding: 30px 25px;
+    width: 92%;
+    padding: 36px 28px;
+    border-radius: 28px;
+  }
+
+  .logo-icon {
+    font-size: 60px;
   }
 
   .title {
-    font-size: 24px;
+    font-size: 26px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .login-button {
+    height: 48px;
+    font-size: 16px;
   }
 }
 </style>

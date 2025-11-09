@@ -1,11 +1,14 @@
 package com.kindergarten.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.kindergarten.common.Result;
 import com.kindergarten.entity.Attendance;
 import com.kindergarten.entity.ChildInfo;
 import com.kindergarten.entity.ParentChildRelation;
+import com.kindergarten.entity.ParentInfo;
 import com.kindergarten.mapper.ChildInfoMapper;
 import com.kindergarten.mapper.ParentChildRelationMapper;
+import com.kindergarten.mapper.ParentInfoMapper;
 import com.kindergarten.service.AttendanceService;
 import com.kindergarten.util.JwtUtil;
 import io.swagger.annotations.Api;
@@ -37,6 +40,9 @@ public class ParentAttendanceController {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private ParentInfoMapper parentInfoMapper;
 
     @ApiOperation("获取孩子的考勤日历")
     @GetMapping("/calendar")
@@ -88,10 +94,25 @@ public class ParentAttendanceController {
      * 验证家长是否有权查看该幼儿信息
      */
     private boolean isParentOfChild(Long userId, Long childId) {
-        com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<ParentChildRelation> wrapper =
-                new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<>();
-        wrapper.eq(ParentChildRelation::getParentId, userId)
+        // 先通过userId获取parentInfoId
+        Long parentInfoId = getParentInfoId(userId);
+        if (parentInfoId == null) {
+            return false;
+        }
+        
+        LambdaQueryWrapper<ParentChildRelation> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ParentChildRelation::getParentId, parentInfoId)
                .eq(ParentChildRelation::getChildId, childId);
         return parentChildRelationMapper.selectCount(wrapper) > 0;
+    }
+    
+    /**
+     * 通过userId获取parentInfoId
+     */
+    private Long getParentInfoId(Long userId) {
+        LambdaQueryWrapper<ParentInfo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ParentInfo::getUserId, userId);
+        ParentInfo parentInfo = parentInfoMapper.selectOne(wrapper);
+        return parentInfo != null ? parentInfo.getId() : null;
     }
 }

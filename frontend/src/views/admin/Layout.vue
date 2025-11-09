@@ -6,7 +6,7 @@
         <transition name="fade">
           <div v-if="!isCollapse" class="logo-content">
             <div class="logo-icon">🎓</div>
-            <h3 class="logo-text">UltraThink</h3>
+            <h3 class="logo-text">幼儿园管理</h3>
           </div>
           <div v-else class="logo-collapsed">
             🎓
@@ -176,6 +176,8 @@ const handleLogout = () => {
 </script>
 
 <style scoped>
+/* ========== 鸿蒙风格管理后台布局 ========== */
+
 .layout-container {
   height: 100vh;
   overflow: hidden;
@@ -183,107 +185,166 @@ const handleLogout = () => {
 
 /* 侧边栏样式 */
 .sidebar {
-  background: linear-gradient(180deg, #1e2a3a 0%, #2d3e50 100%);
-  transition: width 0.3s;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(180deg, #1D1D1F 0%, #2C2C2E 100%);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 100;
+}
+
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .logo-container {
-  height: 64px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0.25);
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .logo-content {
   display: flex;
   align-items: center;
   gap: 12px;
+  animation: fadeIn 0.6s ease;
 }
 
 .logo-icon {
-  font-size: 32px;
-  animation: bounce 2s infinite;
+  font-size: 36px;
+  animation: bounce 3s infinite ease-in-out;
+  filter: drop-shadow(0 2px 8px rgba(0, 125, 255, 0.4));
 }
 
 .logo-text {
   color: #fff;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 19px;
+  font-weight: 700;
   margin: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #007DFF 0%, #0066CC 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: 0.5px;
 }
 
 .logo-collapsed {
-  font-size: 28px;
-  animation: bounce 2s infinite;
+  font-size: 32px;
+  animation: bounce 3s infinite ease-in-out;
+  filter: drop-shadow(0 2px 8px rgba(0, 125, 255, 0.4));
 }
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .sidebar-menu {
   border: none;
+  padding: 0 8px;
 }
 
 .sidebar-menu :deep(.el-menu-item) {
-  margin: 4px 12px;
-  border-radius: 8px;
-  transition: all 0.3s;
+  margin: 4px 0;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #EBEBF0;
+  height: 48px;
+  line-height: 48px;
 }
 
 .sidebar-menu :deep(.el-menu-item:hover) {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #FFFFFF;
 }
 
 .sidebar-menu :deep(.el-menu-item.is-active) {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #007DFF 0%, #0066CC 100%) !important;
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(0, 125, 255, 0.35);
+}
+
+.sidebar-menu :deep(.el-menu-item .el-icon) {
+  font-size: 18px;
 }
 
 /* 主内容区 */
 .main-container {
-  background: #f5f7fa;
+  background: #F5F5F9;
 }
 
 /* 顶部导航 */
 .header {
-  background: #fff;
-  border-bottom: 1px solid #e4e7ed;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
-  z-index: 100;
+  padding: 0 28px;
+  z-index: 99;
+  height: 64px;
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
 }
 
 .collapse-btn {
-  font-size: 20px;
-  color: #606266;
+  font-size: 22px;
+  color: #86868B;
+  transition: all 0.3s ease;
+}
+
+.collapse-btn:hover {
+  color: #007DFF;
+  transform: scale(1.1);
 }
 
 .breadcrumb {
-  font-size: 14px;
+  font-size: 15px;
+}
+
+.breadcrumb :deep(.el-breadcrumb__inner) {
+  color: #1D1D1F;
+  font-weight: 500;
+}
+
+.breadcrumb :deep(.el-breadcrumb__inner.is-link) {
+  color: #86868B;
+}
+
+.breadcrumb :deep(.el-breadcrumb__inner.is-link:hover) {
+  color: #007DFF;
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
 }
 
 .user-info {
@@ -292,19 +353,59 @@ const handleLogout = () => {
   gap: 12px;
 }
 
+.user-info :deep(.el-avatar) {
+  border: 2px solid #F5F5F9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.user-info :deep(.el-avatar:hover) {
+  border-color: #007DFF;
+  transform: scale(1.05);
+}
+
 .username {
   cursor: pointer;
-  color: #606266;
-  font-size: 14px;
+  color: #1D1D1F;
+  font-size: 15px;
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 4px;
-  transition: color 0.3s;
+  gap: 6px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
 }
 
 .username:hover {
-  color: #409eff;
+  color: #007DFF;
+}
+
+.username :deep(.el-icon) {
+  transition: transform 0.3s ease;
+}
+
+.username:hover :deep(.el-icon) {
+  transform: rotate(180deg);
+}
+
+/* Dropdown样式 */
+:deep(.el-dropdown-menu) {
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+:deep(.el-dropdown-menu__item) {
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin: 2px 0;
+  transition: all 0.3s ease;
+}
+
+:deep(.el-dropdown-menu__item:hover) {
+  background: rgba(0, 125, 255, 0.1);
+  color: #007DFF;
 }
 
 /* 内容区 */
@@ -312,12 +413,13 @@ const handleLogout = () => {
   padding: 24px;
   overflow-y: auto;
   min-height: calc(100vh - 64px);
+  background: #F5F5F9;
 }
 
 /* 过渡动画 */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease;
 }
 
 .fade-enter-from,
@@ -325,18 +427,48 @@ const handleLogout = () => {
   opacity: 0;
 }
 
-.fade-transform-enter-active,
+.fade-transform-enter-active {
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .fade-transform-leave-active {
-  transition: all 0.3s;
+  animation: slideOutLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.fade-transform-enter-from {
-  opacity: 0;
-  transform: translateX(-30px);
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.fade-transform-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
+@keyframes slideOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 16px;
+  }
+
+  .header-left {
+    gap: 16px;
+  }
+
+  .content {
+    padding: 16px;
+  }
 }
 </style>

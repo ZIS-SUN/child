@@ -80,7 +80,7 @@
             <el-table-column prop="remark" label="备注" show-overflow-tooltip />
             <el-table-column label="操作" width="100">
               <template #default="{ row }">
-                <el-button type="danger" size="small" @click="deleteGrowthRecord(row.id)">删除</el-button>
+                <el-button type="danger" size="small" @click="handleDeleteGrowthRecord(row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -182,6 +182,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { useUserStore } from '@/store/user'
 import {
   getChildList,
   getHealthInfo,
@@ -193,6 +194,9 @@ import {
   recordGrowth,
   deleteGrowthRecord
 } from '@/api/admin'
+
+// 获取用户信息
+const userStore = useUserStore()
 
 // 数据
 const childrenList = ref([])
@@ -297,7 +301,7 @@ const saveTempRecord = async () => {
   try {
     await recordTemperature(selectedChildId.value, {
       ...tempForm,
-      recorderId: 1 // TODO: 获取当前用户ID
+      recorderId: userStore.userInfo.userId
     })
     ElMessage.success('添加成功')
     tempDialogVisible.value = false
@@ -351,7 +355,7 @@ const saveGrowthRecord = async () => {
 }
 
 // 删除成长记录
-const deleteGrowthRecord = async (id) => {
+const handleDeleteGrowthRecord = async (id) => {
   try {
     await ElMessageBox.confirm('确定要删除这条成长记录吗?', '提示', { type: 'warning' })
     await deleteGrowthRecord(id)

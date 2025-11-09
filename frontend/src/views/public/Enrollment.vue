@@ -294,7 +294,7 @@ const handleReset = () => {
 .enrollment-page {
   min-height: 100vh;
   padding: 40px 0;
-  background: linear-gradient(to bottom, #f8f9fe 0%, #ffffff 100%);
+  background: linear-gradient(to bottom, #f5f7fa 0%, #ffffff 100%);
 }
 
 .container {

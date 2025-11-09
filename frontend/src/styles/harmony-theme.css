@@ -1,0 +1,358 @@
+/* 鸿蒙设计系统主题样式 */
+
+/* ========== 颜色系统 ========== */
+:root {
+  /* 主色调 - 鸿蒙蓝 */
+  --harmony-primary: #007DFF;
+  --harmony-primary-light: #3D9AFF;
+  --harmony-primary-lighter: #73B4FF;
+  --harmony-primary-dark: #0066CC;
+  
+  /* 辅助色 */
+  --harmony-success: #00CC88;
+  --harmony-warning: #FF9500;
+  --harmony-danger: #FF3B30;
+  --harmony-info: #5AC8FA;
+  
+  /* 中性色 */
+  --harmony-bg-primary: #F5F5F9;
+  --harmony-bg-secondary: #FFFFFF;
+  --harmony-bg-tertiary: #F0F0F5;
+  
+  /* 文字颜色 */
+  --harmony-text-primary: #1D1D1F;
+  --harmony-text-secondary: #86868B;
+  --harmony-text-tertiary: #AEAEB2;
+  --harmony-text-white: #FFFFFF;
+  
+  /* 边框颜色 */
+  --harmony-border-light: #E5E5EA;
+  --harmony-border-medium: #D1D1D6;
+  
+  /* 渐变色 */
+  --harmony-gradient-primary: linear-gradient(135deg, #007DFF 0%, #0066CC 100%);
+  --harmony-gradient-secondary: linear-gradient(135deg, #00CC88 0%, #00AA73 100%);
+  --harmony-gradient-warm: linear-gradient(135deg, #FF9500 0%, #FF6B00 100%);
+  --harmony-gradient-cool: linear-gradient(135deg, #5AC8FA 0%, #007AFF 100%);
+  
+  /* 阴影 */
+  --harmony-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --harmony-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --harmony-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --harmony-shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.16);
+  
+  /* 圆角 */
+  --harmony-radius-xs: 8px;
+  --harmony-radius-sm: 12px;
+  --harmony-radius-md: 16px;
+  --harmony-radius-lg: 20px;
+  --harmony-radius-xl: 24px;
+  --harmony-radius-full: 9999px;
+  
+  /* 间距 */
+  --harmony-spacing-xs: 4px;
+  --harmony-spacing-sm: 8px;
+  --harmony-spacing-md: 16px;
+  --harmony-spacing-lg: 24px;
+  --harmony-spacing-xl: 32px;
+  --harmony-spacing-2xl: 48px;
+  
+  /* 动画时长 */
+  --harmony-duration-fast: 0.2s;
+  --harmony-duration-normal: 0.3s;
+  --harmony-duration-slow: 0.5s;
+  
+  /* 毛玻璃效果 */
+  --harmony-blur-light: blur(20px);
+  --harmony-blur-medium: blur(40px);
+  --harmony-blur-heavy: blur(60px);
+}
+
+/* ========== 通用样式 ========== */
+.harmony-card {
+  background: var(--harmony-bg-secondary);
+  border-radius: var(--harmony-radius-lg);
+  box-shadow: var(--harmony-shadow-md);
+  padding: var(--harmony-spacing-lg);
+  transition: all var(--harmony-duration-normal) ease;
+}
+
+.harmony-card:hover {
+  box-shadow: var(--harmony-shadow-lg);
+  transform: translateY(-2px);
+}
+
+.harmony-card-glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: var(--harmony-blur-light);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--harmony-radius-lg);
+  box-shadow: var(--harmony-shadow-md);
+}
+
+/* ========== 按钮样式 ========== */
+.harmony-btn {
+  border-radius: var(--harmony-radius-sm);
+  font-weight: 500;
+  transition: all var(--harmony-duration-normal) ease;
+  border: none;
+  cursor: pointer;
+}
+
+.harmony-btn-primary {
+  background: var(--harmony-gradient-primary);
+  color: var(--harmony-text-white);
+  box-shadow: 0 4px 12px rgba(0, 125, 255, 0.3);
+}
+
+.harmony-btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(0, 125, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.harmony-btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ========== 输入框样式 ========== */
+.harmony-input {
+  border-radius: var(--harmony-radius-sm);
+  border: 1px solid var(--harmony-border-light);
+  transition: all var(--harmony-duration-normal) ease;
+  background: var(--harmony-bg-secondary);
+}
+
+.harmony-input:focus {
+  border-color: var(--harmony-primary);
+  box-shadow: 0 0 0 3px rgba(0, 125, 255, 0.1);
+  outline: none;
+}
+
+/* ========== 标签样式 ========== */
+.harmony-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--harmony-radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(0, 125, 255, 0.1);
+  color: var(--harmony-primary);
+}
+
+/* ========== 徽章样式 ========== */
+.harmony-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--harmony-radius-full);
+  background: var(--harmony-danger);
+  color: var(--harmony-text-white);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* ========== 分割线 ========== */
+.harmony-divider {
+  height: 1px;
+  background: var(--harmony-border-light);
+  margin: var(--harmony-spacing-lg) 0;
+  border: none;
+}
+
+/* ========== 页面容器 ========== */
+.harmony-page {
+  background: var(--harmony-bg-primary);
+  min-height: 100vh;
+  padding: var(--harmony-spacing-lg);
+}
+
+.harmony-page-header {
+  background: var(--harmony-bg-secondary);
+  border-radius: var(--harmony-radius-lg);
+  padding: var(--harmony-spacing-lg);
+  margin-bottom: var(--harmony-spacing-lg);
+  box-shadow: var(--harmony-shadow-sm);
+}
+
+/* ========== 网格系统 ========== */
+.harmony-grid {
+  display: grid;
+  gap: var(--harmony-spacing-lg);
+}
+
+.harmony-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.harmony-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.harmony-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 1024px) {
+  .harmony-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .harmony-grid-2,
+  .harmony-grid-3,
+  .harmony-grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .harmony-page {
+    padding: var(--harmony-spacing-md);
+  }
+}
+
+/* ========== 动画 ========== */
+@keyframes harmony-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes harmony-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes harmony-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.harmony-fade-in {
+  animation: harmony-fade-in var(--harmony-duration-normal) ease;
+}
+
+.harmony-scale-in {
+  animation: harmony-scale-in var(--harmony-duration-normal) ease;
+}
+
+.harmony-slide-in {
+  animation: harmony-slide-in var(--harmony-duration-normal) ease;
+}
+
+/* ========== 滚动条美化 ========== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--harmony-bg-tertiary);
+  border-radius: var(--harmony-radius-xs);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--harmony-border-medium);
+  border-radius: var(--harmony-radius-xs);
+  transition: background var(--harmony-duration-normal);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--harmony-text-tertiary);
+}
+
+/* ========== Element Plus 主题定制 ========== */
+.el-button--primary {
+  background: var(--harmony-gradient-primary) !important;
+  border: none !important;
+  border-radius: var(--harmony-radius-sm) !important;
+  box-shadow: 0 4px 12px rgba(0, 125, 255, 0.3) !important;
+  transition: all var(--harmony-duration-normal) ease !important;
+}
+
+.el-button--primary:hover {
+  box-shadow: 0 6px 20px rgba(0, 125, 255, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+.el-button--success {
+  background: var(--harmony-gradient-secondary) !important;
+  border: none !important;
+  border-radius: var(--harmony-radius-sm) !important;
+}
+
+.el-card {
+  border-radius: var(--harmony-radius-lg) !important;
+  border: none !important;
+  box-shadow: var(--harmony-shadow-md) !important;
+  transition: all var(--harmony-duration-normal) ease !important;
+}
+
+.el-card:hover {
+  box-shadow: var(--harmony-shadow-lg) !important;
+}
+
+.el-input__wrapper {
+  border-radius: var(--harmony-radius-sm) !important;
+  box-shadow: var(--harmony-shadow-sm) !important;
+  transition: all var(--harmony-duration-normal) ease !important;
+}
+
+.el-input__wrapper:focus,
+.el-input__wrapper.is-focus {
+  box-shadow: 0 0 0 3px rgba(0, 125, 255, 0.1) !important;
+}
+
+.el-tag {
+  border-radius: var(--harmony-radius-full) !important;
+  border: none !important;
+  padding: 4px 12px !important;
+}
+
+.el-dialog {
+  border-radius: var(--harmony-radius-xl) !important;
+  box-shadow: var(--harmony-shadow-xl) !important;
+}
+
+.el-table {
+  border-radius: var(--harmony-radius-md) !important;
+  overflow: hidden !important;
+}
+
+.el-pagination {
+  margin-top: var(--harmony-spacing-lg) !important;
+}
+
+.el-pagination button,
+.el-pagination .el-pager li {
+  border-radius: var(--harmony-radius-xs) !important;
+}
+
+
+
+
+
+
+

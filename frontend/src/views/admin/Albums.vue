@@ -325,12 +325,17 @@ const submitPhotos = async () => {
     ElMessage.warning('请先上传照片')
     return
   }
+  if (!currentAlbumId.value) {
+    ElMessage.error('相册ID无效，请重新打开对话框')
+    return
+  }
   try {
     await addAlbumPhotos(currentAlbumId.value, {
       photoUrls: uploadedPhotos.value
     })
     ElMessage.success('添加成功')
     photoDialogVisible.value = false
+    resetPhotoForm()
     fetchAlbums()
   } catch (error) {
     ElMessage.error('添加失败')

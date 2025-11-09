@@ -362,3 +362,79 @@ export function deleteGrowthRecord(id) {
     method: 'delete'
   })
 }
+
+// 意见反馈管理
+export function getFeedbackList(params) {
+  return request({
+    url: '/admin/feedback',
+    method: 'get',
+    params
+  })
+}
+
+export function getFeedbackDetail(id) {
+  return request({
+    url: `/admin/feedback/${id}`,
+    method: 'get'
+  })
+}
+
+export function replyFeedback(id, reply) {
+  return request({
+    url: `/admin/feedback/${id}/reply`,
+    method: 'post',
+    params: { reply }
+  })
+}
+
+export function deleteFeedback(id) {
+  return request({
+    url: `/admin/feedback/${id}`,
+    method: 'delete'
+  })
+}
+
+// 家园互动管理
+export function getInteractionList(params) {
+  return request({
+    url: '/admin/interaction',
+    method: 'get',
+    params
+  })
+}
+
+export function getInteractionDetail(id) {
+  return request({
+    url: `/admin/interaction/${id}`,
+    method: 'get'
+  })
+}
+
+export function replyInteraction(id, reply) {
+  return request({
+    url: `/admin/interaction/${id}/reply`,
+    method: 'post',
+    params: { reply }
+  })
+}
+
+export function markInteractionAsRead(id) {
+  return request({
+    url: `/admin/interaction/${id}/read`,
+    method: 'put'
+  })
+}
+
+export function deleteInteraction(id) {
+  return request({
+    url: `/admin/interaction/${id}`,
+    method: 'delete'
+  })
+}
+
+export function getUnreadInteractionCount() {
+  return request({
+    url: '/admin/interaction/unread-count',
+    method: 'get'
+  })
+}

@@ -16,7 +16,7 @@ import java.util.List;
  * 家长端健康信息控制器
  */
 @RestController
-@RequestMapping("/api/parent/health")
+@RequestMapping("/parent/health")
 @RequiredArgsConstructor
 public class ParentHealthController {
 

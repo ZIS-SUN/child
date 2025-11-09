@@ -7,10 +7,10 @@
       <el-row :gutter="20" style="margin-bottom: 20px">
         <el-col :span="6">
           <el-select v-model="searchForm.status" placeholder="请假状态" clearable>
-            <el-option label="待审批" value="pending" />
-            <el-option label="已通过" value="approved" />
-            <el-option label="已拒绝" value="rejected" />
-            <el-option label="已撤销" value="cancelled" />
+            <el-option label="待审批" value="PENDING" />
+            <el-option label="已通过" value="APPROVED" />
+            <el-option label="已拒绝" value="REJECTED" />
+            <el-option label="已撤销" value="CANCELLED" />
           </el-select>
         </el-col>
         <el-col :span="6">
@@ -57,44 +57,42 @@
         </el-table-column>
         <el-table-column label="请假类型" width="100">
           <template #default="{ row }">
-            <el-tag v-if="row.leaveType === 'sick'" type="warning">病假</el-tag>
-            <el-tag v-else-if="row.leaveType === 'personal'" type="info">事假</el-tag>
-            <el-tag v-else>{{ row.leaveType }}</el-tag>
+            <el-tag type="warning">{{ row.leaveType }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="开始时间" width="180">
           <template #default="{ row }">
-            {{ formatDateTime(row.startTime) }}
+            {{ row.startDate }}
           </template>
         </el-table-column>
         <el-table-column label="结束时间" width="180">
           <template #default="{ row }">
-            {{ formatDateTime(row.endTime) }}
+            {{ row.endDate }}
           </template>
         </el-table-column>
         <el-table-column label="请假天数" width="100">
           <template #default="{ row }">
-            {{ calculateDays(row.startTime, row.endTime) }}天
+            {{ calculateDays(row.startDate, row.endDate) }}天
           </template>
         </el-table-column>
         <el-table-column prop="reason" label="请假原因" min-width="150" show-overflow-tooltip />
         <el-table-column label="状态" width="100">
           <template #default="{ row }">
-            <el-tag v-if="row.status === 'pending'" type="warning">待审批</el-tag>
-            <el-tag v-else-if="row.status === 'approved'" type="success">已通过</el-tag>
-            <el-tag v-else-if="row.status === 'rejected'" type="danger">已拒绝</el-tag>
-            <el-tag v-else-if="row.status === 'cancelled'" type="info">已撤销</el-tag>
+            <el-tag v-if="row.status === 'PENDING'" type="warning">待审批</el-tag>
+            <el-tag v-else-if="row.status === 'APPROVED'" type="success">已通过</el-tag>
+            <el-tag v-else-if="row.status === 'REJECTED'" type="danger">已拒绝</el-tag>
+            <el-tag v-else-if="row.status === 'CANCELLED'" type="info">已撤销</el-tag>
             <el-tag v-else>{{ row.status }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="审批备注" min-width="120" show-overflow-tooltip>
           <template #default="{ row }">
-            {{ row.approvalRemark || '-' }}
+            {{ row.approveRemark || '-' }}
           </template>
         </el-table-column>
         <el-table-column label="操作" width="180" fixed="right">
           <template #default="{ row }">
-            <div v-if="row.status === 'pending'">
+            <div v-if="row.status === 'PENDING'">
               <el-button size="small" type="success" @click="handleApprove(row)">通过</el-button>
               <el-button size="small" type="danger" @click="handleReject(row)">拒绝</el-button>
             </div>
@@ -158,9 +156,9 @@ const approvalForm = ref({
 
 // 统计数据
 const stats = computed(() => {
-  const pending = leaveList.value.filter(item => item.status === 'pending').length
-  const approved = leaveList.value.filter(item => item.status === 'approved').length
-  const rejected = leaveList.value.filter(item => item.status === 'rejected').length
+  const pending = leaveList.value.filter(item => item.status === 'PENDING').length
+  const approved = leaveList.value.filter(item => item.status === 'APPROVED').length
+  const rejected = leaveList.value.filter(item => item.status === 'REJECTED').length
   return { pending, approved, rejected }
 })
 

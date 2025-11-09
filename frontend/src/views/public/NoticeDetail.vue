@@ -136,7 +136,7 @@ const fetchNoticeDetail = async () => {
         <p>咨询电话：0123-12345678</p>
         <p>联系人：李老师</p>
 
-        <p style="margin-top: 30px; text-align: right;">UltraThink 幼儿园</p>
+        <p style="margin-top: 30px; text-align: right;">阳光幼儿园</p>
         <p style="text-align: right;">2024年10月20日</p>
       `,
       publishTime: '2024-10-20 10:00:00',
@@ -174,7 +174,7 @@ onMounted(() => {
 .notice-detail-page {
   min-height: 100vh;
   padding: 40px 0;
-  background: #f8f9fe;
+  background: #f5f7fa;
 }
 
 .container {
@@ -275,13 +275,13 @@ onMounted(() => {
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  background: #f8f9fe;
+  background: #f5f7fa;
   border-radius: 8px;
   transition: all 0.3s;
 }
 
 .attachment-item:hover {
-  background: #e8eaf6;
+  background: #f5f7fa;
 }
 
 .attachment-item .el-icon {
@@ -325,7 +325,7 @@ onMounted(() => {
 }
 
 .related-item:hover {
-  background: #f8f9fe;
+  background: #f5f7fa;
 }
 
 .related-item h3 {

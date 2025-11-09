@@ -7,6 +7,7 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import App from './App.vue'
 import router from './router'
 import './style.css'
+import './styles/harmony-theme.css'
 
 const app = createApp(App)
 const pinia = createPinia()

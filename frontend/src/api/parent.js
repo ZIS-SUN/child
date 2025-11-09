@@ -171,3 +171,51 @@ export function getRecentTemperature(childId) {
     method: 'get'
   })
 }
+
+// 意见反馈
+export function getMyFeedbackList(params) {
+  return request({
+    url: '/parent/feedback',
+    method: 'get',
+    params
+  })
+}
+
+export function submitFeedback(content) {
+  return request({
+    url: '/parent/feedback',
+    method: 'post',
+    params: { content }
+  })
+}
+
+export function deleteFeedback(id) {
+  return request({
+    url: `/parent/feedback/${id}`,
+    method: 'delete'
+  })
+}
+
+// 家园互动
+export function getMyInteractionList(params) {
+  return request({
+    url: '/parent/interaction',
+    method: 'get',
+    params
+  })
+}
+
+export function createInteraction(data) {
+  return request({
+    url: '/parent/interaction',
+    method: 'post',
+    params: data
+  })
+}
+
+export function deleteInteraction(id) {
+  return request({
+    url: `/parent/interaction/${id}`,
+    method: 'delete'
+  })
+}
